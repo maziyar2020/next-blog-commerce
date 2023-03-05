@@ -52,7 +52,18 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="bg-blue-200 md:col-span-9">blogs
+          <div className="md:col-span-9 grid grid-cols-6 gap-6">
+            {[1, 2, 3, 4, 5, 6].map(index =>
+              <div 
+                key={index}
+                className="col-span-6 md:col-span-3 lg:col-span-2 bg-white p-4 rounded-2xl"
+              >
+                {/* blog image */}
+                <div></div>
+                {/* blog content */}
+                <div className='rounded-2xl bg-gray-50'>content</div>
+              </div>
+            )}
           </div>
         </div>
       </div>
