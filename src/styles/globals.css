@@ -69,7 +69,7 @@
 
 @font-face {
   font-family: "IranSans";
-  src: url("./fonts/iransans/fonts/ttf/IRANSansWeb.ttf");
+  src: url("../../public/fonts/iransans/fonts/ttf/IRANSansWeb.ttf");
 }
 
 * {
