@@ -52,16 +52,47 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="md:col-span-9 grid grid-cols-6 gap-6">
-            {[1, 2, 3, 4, 5, 6].map(index =>
-              <div 
+          <div className="md:col-span-9 grid grid-cols-6 gap-8">
+            {[
+              "node.png",
+              "next.png",
+              "vue.png",
+              "nuxt.png",
+              "next.png",
+              "node.png"
+            ].map((item, index) =>
+              <div
                 key={index}
-                className="col-span-6 md:col-span-3 lg:col-span-2 bg-white p-4 rounded-2xl"
+                className="
+                col-span-6 
+                md:col-span-3 
+                lg:col-span-2 
+                shadow-2xl
+                p-4 
+                rounded-2xl"
               >
                 {/* blog image */}
-                <div></div>
+                <div className='aspect-w-16 aspect-h-9'>
+                  <img
+                    src={`images/${item}`}
+                    className="object-center object-cover h-full w-full"
+                  />
+                </div>
                 {/* blog content */}
-                <div className='rounded-2xl bg-gray-50'>content</div>
+                <div className='rounded-2xl bg-gray-50 p-2 mt-2'>
+                  <h2 className='font-bold'>بررسی کامل مطلب</h2>
+                  <div className='flex align-middle justify-between mt-3 px-1'>
+                    {/* author detail */}
+                    <div className='flex items-center'>
+                      <img src='/images/next.png' className='rounded-full w-6 h-6 ring ring-violet-100' />
+                      <span className='mr-2 text-sm'>مازیار موسوی</span>
+                    </div>
+                    {/* tag  */}
+                    <span className='text-xs px-2 py-1 rounded-xl bg-violet-300'>
+                      ریکت
+                    </span>
+                  </div>
+                </div>
               </div>
             )}
           </div>
