@@ -1,9 +1,14 @@
+import PostList from '../components/Post/PostList'
 import { ChevronDownIcon, AdjustmentsIcon } from '@heroicons/react/outline'
+import axios from 'axios'
 import Link from 'next/link'
 import { useState } from 'react'
 
 
-export default function Home() {
+export default function Home({ blogsData, postCategory }) {
+  const { data: blogs } = blogsData
+  const { data: category } = postCategory
+
   const [isOpen, SetIsOpen] = useState(false)
 
   return (
@@ -31,12 +36,28 @@ export default function Home() {
 
               {/* accordion content */}
               <div className={`accordion__content ${isOpen ? "block" : "hidden"}`}>
-                <Link href={"#"} className="flex hover:bg-purple-50 py-2 pr-4 mb-1" >1</Link>
-                <Link href={"#"} className="flex hover:bg-purple-50 py-2 pr-4 mb-1" >2</Link>
-                <Link href={"#"} className="flex hover:bg-purple-50 py-2 pr-4" >3</Link>
+                <Link href={"/blogs"} className="flex hover:bg-purple-50 py-2 pr-4 mb-1" >همه مقالات</Link>
+                {category.map(item => {
+                  return (
+                    <Link href={`/blogs/${item.englishTitle}`}
+                      className="bg-red-100 flex hover:bg-purple-50 py-2 pr-4 mb-1"
+                      key={item._id}
+                    >{item.englishTitle}</Link>
+                  )
+                })}
               </div>
 
             </div>
+          </div>
+          {/* mobile category */}
+          <div className='flex md:hidden gap-x-4 overflow-auto pb-5'>
+            {category.map(item => {
+              return (
+                <Link href={`/blogs/${item.englishTitle}`}
+                  className="flex items-center text-sm whitespace-nowrap border border-gray-400 text-gray-400 bg-white rounded-3xl px-3 py-1"
+                  key={item._id} >{item.englishTitle}</Link>
+              )
+            })}
           </div>
           {/* sort section */}
           <div className="hidden md:block md:col-span-9">
@@ -53,51 +74,22 @@ export default function Home() {
             </div>
           </div>
           <div className="md:col-span-9 grid grid-cols-6 gap-8">
-            {[
-              "node.png",
-              "next.png",
-              "vue.png",
-              "nuxt.png",
-              "next.png",
-              "node.png"
-            ].map((item, index) =>
-              <div
-                key={index}
-                className="
-                col-span-6 
-                md:col-span-3 
-                lg:col-span-2 
-                shadow-2xl
-                p-4 
-                rounded-2xl"
-              >
-                {/* blog image */}
-                <div className='aspect-w-16 aspect-h-9'>
-                  <img
-                    src={`images/${item}`}
-                    className="object-center object-cover h-full w-full"
-                  />
-                </div>
-                {/* blog content */}
-                <div className='rounded-2xl bg-gray-50 p-2 mt-2'>
-                  <h2 className='font-bold'>بررسی کامل مطلب</h2>
-                  <div className='flex align-middle justify-between mt-3 px-1'>
-                    {/* author detail */}
-                    <div className='flex items-center'>
-                      <img src='/images/next.png' className='rounded-full w-6 h-6 ring ring-violet-100' />
-                      <span className='mr-2 text-sm'>مازیار موسوی</span>
-                    </div>
-                    {/* tag  */}
-                    <span className='text-xs px-2 py-1 rounded-xl bg-violet-300'>
-                      ریکت
-                    </span>
-                  </div>
-                </div>
-              </div>
-            )}
+            <PostList blogs={blogs} />
           </div>
         </div>
       </div>
     </div>
   )
+}
+
+export async function getServerSideProps(context) {
+
+  const { data: blogsData } = await axios.get("http://localhost:5000/api/posts?limit=6&page=1")
+  const { data: postCategory } = await axios.get("http://localhost:5000/api/post-category")
+  return {
+    props: {
+      blogsData,
+      postCategory
+    }
+  }
 }

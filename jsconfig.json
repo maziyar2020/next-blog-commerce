@@ -3,12 +3,12 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"],
-      "@/src/containers/*" : ["./src/containers"],
-      "@/src/components/*" : ["./src/components"],
-      "@/src/context/*" : ["./src/context/*"],
-      "@/src/hooks/*" : ["./src/hooks/*"],
-      "@/src/common/*" : ["./src/common/*"],
-      "@/src/utils/*" : ["./src/utils/*"]
+      "@/containers/*" : ["./src/containers"],
+      "@/components/*" : ["./src/components"],
+      "@/context/*" : ["./src/context/*"],
+      "@/hooks/*" : ["./src/hooks/*"],
+      "@/common/*" : ["./src/common/*"],
+      "@/utils/*" : ["./src/utils/*"]
     }
   }
 }
